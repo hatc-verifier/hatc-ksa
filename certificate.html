@@ -3,127 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Certificate Verification - HATC</title>
+  <title>Certificate Verification</title>
   <style>
-    body { 
-      margin: 0; padding: 0; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      background: #fff; color: #333; 
-    }
-    .header { text-align: center; padding: 10px; border-bottom: 2px solid #eee; }
-    .header img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-    
-    .main { max-width: 600px; margin: 10px auto; padding: 10px; }
-    
-    .title-bar { 
-      display: flex; justify-content: space-between; align-items: center; 
-      border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;
-    }
-    h2 { font-size: 16px; margin: 0; color: #000; }
-    .back { color: purple; text-decoration: underline; font-size: 14px; font-weight: bold; }
-
-    /* স্ক্রিনশটের মতো রাউন্ডেড বক্স */
-    .details-box { 
-      border: 1px solid #999; 
-      border-radius: 20px; /* রাউন্ডেড কর্নার */
-      padding: 20px; 
-      margin: 10px 0; 
-      overflow: hidden;
-    }
-    
-    table { width: 100%; border-collapse: collapse; }
-    th, td { 
-      padding: 4px 5px; 
-      text-align: left; 
-      font-size: 13px; 
-      border-bottom: 1px solid #ddd; /* হালকা নিচের বর্ডার */
-    }
-    th { width: 35%; font-weight: bold; color: #000; }
-    tr:last-child th, tr:last-child td { border-bottom: none; }
-
-    .genuine { 
-      color: #333; font-size: 13px; text-align: center; 
-      margin: 15px 0; border-top: 2px solid #999; padding-top: 10px;
-    }
-    .contact { text-align: center; font-size: 13px; margin-top: 20px; }
-    .contact h3 { font-size: 15px; margin-bottom: 5px; }
-    .error-msg { color: red; text-align: center; margin-top: 20px; font-weight: bold; }
+    body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #fff; color: #000; }
+    .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #555; }
+    .header img { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; }
+    .container { max-width: 900px; margin: 20px auto; text-align: center; padding: 0 10px; }
+    .instruction { font-size: 13px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; text-align: left; }
+    .search-box { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 13px; }
+    input { padding: 2px 5px; font-size: 13px; border: 1px solid #777; width: 150px; }
+    button { padding: 2px 10px; font-size: 12px; background: #f0f0f0; color: black; border: 1px solid #777; cursor: pointer; }
+    button:hover { background: #e0e0e0; }
   </style>
 </head>
 <body>
-
   <div class="header">
-    <img src="header.png" alt="Human Assets Training Header">
+    <img src="header.png" alt="Header">
   </div>
-
-  <div class="main">
-    <div class="title-bar">
-      <h2>Details Below:</h2>
-      <a href="#" class="back">Back To Home Page</a>
-    </div>
-
-    <div class="details-box" id="details-box" style="display:none;">
-      <table>
-        <tr><th>C. No</th><td id="c_no"></td></tr>
-        <tr><th>Name</th><td id="name"></td></tr>
-        <tr><th>ID/PP NO</th><td id="id_pp"></td></tr>
-        <tr><th>Date of Birth</th><td id="dob">/</td></tr>
-        <tr><th>Course Title</th><td id="course"></td></tr>
-        <tr><th>Course Type</th><td id="type"></td></tr>
-        <tr><th>Duration</th><td id="duration"></td></tr>
-        <tr><th>Nationality</th><td id="nationality"></td></tr>
-        <tr><th>Company</th><td id="company"></td></tr>
-        <tr><th>Certificate Type</th><td id="cert_type"></td></tr>
-      </table>
-    </div>
-
-    <p id="genuine-msg" class="genuine" style="display:none;">The above certificate is genuine, and issued by Human Assets Training Institute</p>
-    <p id="error-msg" class="error-msg" style="display:none;"></p>
-
-    <div class="contact">
-      <h3>Contact us:</h3>
-      <p>Tel: +966 13 849-3360 Fax: +966 13 849-3404</p>
-      <p>E-Mail: <a href="mailto:info@hatc-ksa.com">info@hatc-ksa.com</a></p>
+  <div class="container">
+    <p class="instruction">
+      This search engine will help you to find out whether the certificate is true or not, please enter C. No (Certificate No).
+    </p>
+    <div class="search-box">
+      <span>C.No</span>
+      <input type="text" id="certNo" value="121086">
+      <button onclick="checkCertificate()">check certificate</button>
     </div>
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const cno = params.get('cno');
-
-    if (!cno) {
-      document.getElementById('error-msg').textContent = 'No Certificate Number Provided!';
-      document.getElementById('error-msg').style.display = 'block';
-    } else {
-      document.getElementById('c_no').textContent = cno;
-
-      // ডেটা লোড করার লজিক
-      fetch('data.json')
-        .then(res => res.json())
-        .then(data => {
-          if (data[cno]) {
-            const cert = data[cno];
-            document.getElementById('name').textContent = cert.name;
-            document.getElementById('id_pp').textContent = cert.id_pp;
-            document.getElementById('dob').textContent = cert.dob || '/';
-            document.getElementById('course').textContent = cert.course_title;
-            document.getElementById('type').textContent = cert.course_type;
-            document.getElementById('duration').textContent = cert.duration;
-            document.getElementById('nationality').textContent = cert.nationality;
-            document.getElementById('company').textContent = cert.company;
-            document.getElementById('cert_type').textContent = cert.cert_type;
-
-            document.getElementById('details-box').style.display = 'block';
-            document.getElementById('genuine-msg').style.display = 'block';
-          } else {
-            document.getElementById('error-msg').textContent = 'Invalid Certificate Number!';
-            document.getElementById('error-msg').style.display = 'block';
-          }
-        }).catch(() => {
-          document.getElementById('error-msg').textContent = 'Error connecting to database!';
-          document.getElementById('error-msg').style.display = 'block';
-        });
+    function checkCertificate() {
+      const no = document.getElementById('certNo').value.trim();
+      if (!no) {
+        alert('Please enter C.No!');
+        return;
+      }
+      window.location.href = 'certificate.html?cno=' + no;
     }
+    document.getElementById("certNo").addEventListener("keyup", function(event) {
+      if (event.key === "Enter") checkCertificate();
+    });
   </script>
 </body>
 </html>
