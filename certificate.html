@@ -5,25 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Certificate Details</title>
   <style>
-    body { margin:0; padding:0; font-family:Arial,sans-serif; background:#fff; color:#000; }
-    .header { text-align:center; padding:15px 0 10px; background:#fff; }
-    .header img { width:100%; max-width:900px; height:auto; display:block; margin:0 auto; }
-    .main { max-width:700px; margin:20px auto; padding:0 15px; text-align:center; }
-    h2 { font-size:22px; margin:20px 0 10px; text-align:left; }
-    .back { float:right; color:blue; text-decoration:underline; font-size:16px; }
-    .details-box { border:2px solid #000; padding:15px; margin:20px 0; background:#fff; }
-    table { width:100%; border-collapse:collapse; }
-    th, td { border:1px solid #000; padding:8px 10px; text-align:left; font-size:14px; }
-    th { background:#fff; width:40%; font-weight:bold; }
-    .genuine { color:green; font-weight:bold; margin:20px 0; font-size:16px; }
-    .error-msg { color:red; font-weight:bold; font-size:18px; margin:30px 0; }
-    .contact { margin-top:40px; font-size:14px; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.4;
+    }
+    .header {
+      text-align: center;
+      padding: 15px 0 5px;
+      background: #fff;
+    }
+    .header img {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .line {
+      border-top: 1px solid #000;
+      margin: 5px 0 15px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .main {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+    h2 {
+      font-size: 20px;
+      margin: 20px 0 10px;
+      text-align: left;
+    }
+    .back {
+      float: right;
+      color: blue;
+      text-decoration: underline;
+      font-size: 16px;
+    }
+    .details-box {
+      border: 2px solid #000;
+      padding: 0;
+      margin: 20px 0;
+      background: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: none;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 14px;
+      vertical-align: top;
+    }
+    th {
+      background: #fff;
+      font-weight: bold;
+      width: 35%;
+    }
+    .genuine {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 16px;
+    }
+    .contact {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
   <div class="header">
     <img src="header.png" alt="Header">
   </div>
+
+  <div class="line"></div>
 
   <div class="main">
     <h2>Details Below: <a href="index.html" class="back">Back To Home Page</a></h2>
@@ -45,7 +112,7 @@
 
     <p id="genuine-msg" class="genuine" style="display:none;">The above certificate is genuine, and issued by Human Assets Training Institute</p>
 
-    <p id="error-msg" class="error-msg"></p>
+    <p id="error-msg" class="error-msg" style="display:none;"></p>
 
     <div class="contact">
       <h3>Contact us:</h3>
@@ -60,6 +127,7 @@
 
     if (!cno) {
       document.getElementById('error-msg').textContent = 'No Certificate Number Provided!';
+      document.getElementById('error-msg').style.display = 'block';
     } else {
       document.getElementById('c_no').textContent = cno;
 
@@ -82,10 +150,12 @@
             document.getElementById('genuine-msg').style.display = 'block';
           } else {
             document.getElementById('error-msg').textContent = 'Certificate not found or invalid!';
+            document.getElementById('error-msg').style.display = 'block';
           }
         })
         .catch(error => {
           document.getElementById('error-msg').textContent = 'Error loading data!';
+          document.getElementById('error-msg').style.display = 'block';
         });
     }
   </script>
