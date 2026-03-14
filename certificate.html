@@ -5,33 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Certificate Details</title>
   <style>
-    body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #fff; line-height: 1.4; }
-    .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #555; }
-    .header img { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; }
-    .main { max-width: 700px; margin: 10px auto; padding: 0 10px; }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      font-family: Arial, sans-serif; 
+      background: #fff; 
+      line-height: 1.2; 
+    }
+    
+    /* হেডার সেকশন */
+    .header { 
+      text-align: center; 
+      padding: 5px 0; 
+      border-bottom: 2px solid #555; 
+    }
+    .header img { 
+      width: 100%; 
+      max-width: 900px; 
+      height: auto; 
+      display: block; 
+      margin: 0 auto; 
+    }
+
+    .main { 
+      max-width: 900px; 
+      margin: 10px auto; 
+      padding: 0 10px; 
+    }
+    
+    /* উপরের টাইটেল এবং ব্যাক বাটন */
     h2 { 
-      font-size: 15px; margin: 10px 0; display: flex; 
-      justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 5px; 
+      font-size: 13px; 
+      margin: 10px 0; 
+      display: flex; 
+      justify-content: space-between; 
+      border-bottom: 1px solid #ccc; 
+      padding-bottom: 5px; 
+      font-weight: bold;
     }
-    .back { color: #600090; text-decoration: underline; font-size: 13px; font-weight: bold; }
+    .back { 
+      color: #600090; 
+      text-decoration: underline; 
+      font-size: 12px; 
+    }
+
+    /* অরিজিনাল ডিজাইনের মতো ছোট ও চিকন বক্স */
     .details-box { 
-      border: 1.5px solid #000; border-radius: 20px; 
-      padding: 15px; margin: 15px 0; background: #fff;
+      border: 1.2px solid #000; 
+      border-radius: 20px; 
+      padding: 8px 15px; 
+      margin: 20px auto; 
+      background: #fff;
+      width: 90%; 
+      max-width: 450px; /* বক্সের চওড়া কমানো হয়েছে */
     }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border-bottom: 1px solid #eee; padding: 6px 4px; text-align: left; font-size: 12px; vertical-align: top; }
-    th { font-weight: bold; width: 35%; color: #000; }
-    tr:last-child th, tr:last-child td { border-bottom: none; }
-    .genuine { color: #333; font-weight: normal; text-align: center; margin: 15px 0; font-size: 12px; border-top: 1px solid #999; padding-top: 10px; }
-    .contact { text-align: center; font-size: 12px; margin-top: 20px; }
+
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+    }
+
+    th, td { 
+      border-bottom: 1px solid #f0f0f0; 
+      padding: 4px 0; /* রো এর উচ্চতা কমানো হয়েছে */
+      text-align: left; 
+      font-size: 11px; 
+      vertical-align: top;
+    }
+
+    th { 
+      font-weight: bold; 
+      width: 35%; 
+      color: #000; 
+    }
+
+    td { 
+      color: #333; 
+      padding-left: 10px;
+    }
+
+    tr:last-child th, tr:last-child td { 
+      border-bottom: none; 
+    }
+
+    /* নিচের মেসেজ এবং কন্টাক্ট ইনফো */
+    .genuine { 
+      color: #444; 
+      text-align: center; 
+      margin: 20px 0 10px; 
+      font-size: 11px; 
+      border-top: 1px solid #ccc; 
+      padding-top: 10px; 
+    }
+
+    .contact { 
+      text-align: center; 
+      font-size: 11px; 
+      line-height: 1.5;
+    }
+    
+    .contact strong { font-size: 13px; }
+    
     .error-msg { color: red; text-align: center; font-weight: bold; margin-top: 50px; }
   </style>
 </head>
 <body>
-  <div class="header"><img src="header.png" alt="Header"></div>
+
+  <div class="header">
+    <img src="header.png" alt="Header">
+  </div>
+
   <div class="main">
     <h2>Details Below: <a href="index.html" class="back">Back To Home Page</a></h2>
-    <div id="loading" style="text-align:center; padding:20px;">Loading details...</div>
+    
+    <div id="loading" style="text-align:center; padding:20px; font-size:12px;">Loading...</div>
+
     <div class="details-box" id="details-box" style="display:none;">
       <table>
         <tr><th>C. No</th><td id="c_no"></td></tr>
@@ -46,18 +134,24 @@
         <tr><th>Certificate Type</th><td id="cert_type"></td></tr>
       </table>
     </div>
-    <p id="genuine-msg" class="genuine" style="display:none;">The above certificate is genuine, and issued by Human Assets Training Institute</p>
+
+    <p id="genuine-msg" class="genuine" style="display:none;">
+      The above certificate is genuine, and issued by Human Assets Training Institute
+    </p>
+
     <p id="error-msg" class="error-msg" style="display:none;"></p>
+
     <div class="contact">
-      <p><strong>Contact us:</strong></p>
-      <p>Tel: +966 13 849-3360 | Fax: +966 13 849-3404</p>
-      <p>E-Mail: <a href="mailto:info@hatc-ksa.com">info@hatc-ksa.com</a></p>
+      <p><strong>Contact us:</strong><br>
+      Tel: +966 13 849-3360 | Fax: +966 13 849-3404<br>
+      E-Mail: <a href="mailto:info@hatc-ksa.com">info@hatc-ksa.com</a></p>
     </div>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const cno = params.get('cno');
+
     if (!cno) {
       document.getElementById('loading').style.display = 'none';
       document.getElementById('error-msg').textContent = 'No Certificate Number Provided!';
@@ -79,15 +173,17 @@
             document.getElementById('nationality').textContent = cert.nationality;
             document.getElementById('company').textContent = cert.company;
             document.getElementById('cert_type').textContent = cert.cert_type;
+            
             document.getElementById('details-box').style.display = 'block';
             document.getElementById('genuine-msg').style.display = 'block';
           } else {
-            document.getElementById('error-msg').textContent = 'Certificate not found or invalid!';
+            document.getElementById('error-msg').textContent = 'Invalid Certificate Number!';
             document.getElementById('error-msg').style.display = 'block';
           }
-        }).catch(() => {
+        })
+        .catch(() => {
           document.getElementById('loading').style.display = 'none';
-          document.getElementById('error-msg').textContent = 'Error loading database!';
+          document.getElementById('error-msg').textContent = 'Error: Data not found!';
           document.getElementById('error-msg').style.display = 'block';
         });
     }
