@@ -6,29 +6,56 @@
   <title>Certificate Verification</title>
   <style>
     body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #fff; }
-    .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #555; }
+    .header { text-align: center; padding: 10px 0; border-bottom: 2.5px solid #555; }
     .header img { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; }
-    .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+    
+    .container { max-width: 900px; margin: 15px auto; padding: 0 10px; }
+    
     .instruction { 
-      font-size: 7px; font-weight: bold; color: #000;
-      margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 15px;
-      line-height: 1.4;
+      font-size: 13px; /* ফন্ট সাইজ অরিজিনাল সাইটের মতো করা হয়েছে */
+      font-weight: bold; 
+      color: #000;
+      margin-bottom: 15px; 
+      border-bottom: 1px solid #ccc; 
+      padding-bottom: 12px;
+      line-height: 1.2;
+      white-space: nowrap; /* এটি লেখাটিকে বাধ্যতামূলকভাবে এক লাইনে রাখবে */
+      overflow: hidden;    /* যদি স্ক্রিন খুব ছোট হয় তবে বাড়তি অংশ লুকানো থাকবে */
     }
-    .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
-    span { font-size: 15px; font-weight: normal; }
+
+    .search-row { 
+      display: flex; 
+      align-items: center; 
+      gap: 5px; /* গ্যাপ কমানো হয়েছে */
+    }
+
+    span { font-size: 13px; font-weight: normal; }
+
     input { 
-      padding: 4px 8px; font-size: 16px; border: 1px solid #000; 
-      width: 60%; max-width: 250px; height: 25px;
+      padding: 2px 4px; 
+      font-size: 13px; 
+      border: 1px solid #999; 
+      width: 150px; /* বক্সের সাইজ ছোট করা হয়েছে */
+      height: 18px; /* উচ্চতা কমানো হয়েছে */
+      outline: none;
     }
+
     button { 
-      padding: 0 10px; font-size: 13px; background: #efefef; 
-      border: 1px solid #767676; cursor: pointer; height: 35px;
+      padding: 0 8px; 
+      font-size: 11.5px; 
+      background: #f0f0f0; 
+      border: 1px solid #767676; 
+      cursor: pointer; 
+      height: 22px;
       white-space: nowrap;
     }
-    @media (max-width: 400px) {
-      span { font-size: 13px; }
-      input { width: 50%; }
-      button { font-size: 11px; padding: 0 5px; }
+
+    /* মোবাইলের জন্য ছোট অ্যাডজাস্টমেন্ট */
+    @media (max-width: 600px) {
+      .instruction { 
+        font-size: 11px; /* মোবাইলে লেখা যেন আরও সহজে এক লাইনে আটে */
+      }
+      input { width: 120px; }
     }
   </style>
 </head>
@@ -40,7 +67,7 @@
     </div>
     <div class="search-row">
       <span>C.No</span>
-      <input type="text" id="certNo" placeholder="">
+      <input type="text" id="certNo">
       <button onclick="checkCertificate()">check certificate</button>
     </div>
   </div>
@@ -48,7 +75,6 @@
     function checkCertificate() {
       const no = document.getElementById('certNo').value.trim();
       if (no) { window.location.href = 'certificate.html?cno=' + no; }
-      else { alert("Please enter Certificate Number"); }
     }
     document.getElementById("certNo").addEventListener("keyup", function(event) {
       if (event.key === "Enter") checkCertificate();
