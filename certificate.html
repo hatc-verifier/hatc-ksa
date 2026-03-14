@@ -5,29 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Certificate Details</title>
   <style>
-    body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #fff; color: #000; line-height: 1.4; }
+    body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #fff; line-height: 1.4; }
     .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #555; }
     .header img { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; }
-    .main { max-width: 700px; margin: 20px auto; padding: 0 15px; }
-    h2 { font-size: 18px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-    .back { color: purple; text-decoration: underline; font-size: 14px; font-weight: bold; cursor: pointer; }
-    .details-box { border: 1.5px solid #000; border-radius: 15px; padding: 15px; margin: 15px 0; background: #fff; overflow: hidden; }
+    .main { max-width: 700px; margin: 10px auto; padding: 0 10px; }
+    h2 { 
+      font-size: 15px; margin: 10px 0; display: flex; 
+      justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 5px; 
+    }
+    .back { color: #600090; text-decoration: underline; font-size: 13px; font-weight: bold; }
+    .details-box { 
+      border: 1.5px solid #000; border-radius: 20px; 
+      padding: 15px; margin: 15px 0; background: #fff;
+    }
     table { width: 100%; border-collapse: collapse; }
-    th, td { border-bottom: 1px solid #eee; padding: 6px 8px; text-align: left; font-size: 13px; vertical-align: top; }
+    th, td { border-bottom: 1px solid #eee; padding: 6px 4px; text-align: left; font-size: 12px; vertical-align: top; }
     th { font-weight: bold; width: 35%; color: #000; }
     tr:last-child th, tr:last-child td { border-bottom: none; }
-    .genuine { color: #333; font-weight: bold; text-align: center; margin: 20px 0; font-size: 14px; border-top: 1px solid #999; padding-top: 10px; }
-    .contact { margin-top: 30px; text-align: center; font-size: 13px; }
-    .error-msg { color: red; text-align: center; font-weight: bold; margin-top: 20px; }
+    .genuine { color: #333; font-weight: normal; text-align: center; margin: 15px 0; font-size: 12px; border-top: 1px solid #999; padding-top: 10px; }
+    .contact { text-align: center; font-size: 12px; margin-top: 20px; }
+    .error-msg { color: red; text-align: center; font-weight: bold; margin-top: 50px; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="header.png" alt="Header">
-  </div>
+  <div class="header"><img src="header.png" alt="Header"></div>
   <div class="main">
     <h2>Details Below: <a href="index.html" class="back">Back To Home Page</a></h2>
-    <div id="loading-msg" style="text-align:center;">Checking...</div>
+    <div id="loading" style="text-align:center; padding:20px;">Loading details...</div>
     <div class="details-box" id="details-box" style="display:none;">
       <table>
         <tr><th>C. No</th><td id="c_no"></td></tr>
@@ -46,7 +50,7 @@
     <p id="error-msg" class="error-msg" style="display:none;"></p>
     <div class="contact">
       <p><strong>Contact us:</strong></p>
-      <p>Tel: +966 13 849-3360 Fax: +966 13 849-3404</p>
+      <p>Tel: +966 13 849-3360 | Fax: +966 13 849-3404</p>
       <p>E-Mail: <a href="mailto:info@hatc-ksa.com">info@hatc-ksa.com</a></p>
     </div>
   </div>
@@ -55,14 +59,14 @@
     const params = new URLSearchParams(window.location.search);
     const cno = params.get('cno');
     if (!cno) {
-      document.getElementById('loading-msg').style.display = 'none';
+      document.getElementById('loading').style.display = 'none';
       document.getElementById('error-msg').textContent = 'No Certificate Number Provided!';
       document.getElementById('error-msg').style.display = 'block';
     } else {
       fetch('data.json')
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-          document.getElementById('loading-msg').style.display = 'none';
+          document.getElementById('loading').style.display = 'none';
           if (data[cno]) {
             const cert = data[cno];
             document.getElementById('c_no').textContent = cno;
@@ -81,9 +85,9 @@
             document.getElementById('error-msg').textContent = 'Certificate not found or invalid!';
             document.getElementById('error-msg').style.display = 'block';
           }
-        }).catch(err => {
-          document.getElementById('loading-msg').style.display = 'none';
-          document.getElementById('error-msg').textContent = 'Database Error!';
+        }).catch(() => {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('error-msg').textContent = 'Error loading database!';
           document.getElementById('error-msg').style.display = 'block';
         });
     }
