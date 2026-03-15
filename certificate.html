@@ -13,41 +13,27 @@
     h2 { font-size: 13px; margin: 8px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 3px; font-weight: bold; }
     .back { color: #600090; text-decoration: underline; font-size: 11px; }
 
-    /* ছবির মতো ছোট বক্স এবং বাম দিকে বেশি ফাঁকা জায়গা */
+    /* বাম দিকে আরও ফাঁকা জায়গা তৈরির জন্য ডিজাইন */
     .details-box { 
       border: 1px solid #000; 
       border-radius: 20px; 
-      padding: 15px 10px 15px 0; /* বাম পাশের ফাঁকা তৈরির জন্য */
+      padding: 15px 10px 15px 0; 
       margin: 20px auto; 
-      width: 80%; /* বক্স আরও ছোট করা হয়েছে */
-      max-width: 450px; 
+      width: 85%; 
+      max-width: 480px; 
       display: none;
     }
 
-    table { width: 100%; border-collapse: collapse; margin-left: auto; width: 85%; } /* টেবিলটি ডানে চাপানো যাতে বামে ফাঁকা থাকে */
+    /* বাম পাশে ফাঁকা জায়গা বাড়ানোর জন্য width এবং margin-left পরিবর্তন করা হয়েছে */
+    table { width: 75%; border-collapse: collapse; margin-left: auto; margin-right: 5%; } 
     th, td { border-bottom: 0.8px solid #999; padding: 4px 0; text-align: left; font-size: 11px; }
-    th { width: 30%; font-weight: normal; }
+    th { width: 35%; font-weight: normal; }
     td { padding-left: 10px; font-weight: normal; vertical-align: top; }
     tr:last-child th, tr:last-child td { border-bottom: none; }
 
-    /* ব্র্যাকেটের টেক্সট ছবির মতো স্টাইল */
-    .small-text {
-      font-size: 10px;
-      display: block;
-      line-height: 1.2;
-      margin-top: 1px;
-    }
-
+    .small-text { font-size: 10px; display: block; line-height: 1.2; margin-top: 1px; }
     .status-msg { text-align: center; margin-top: 15px; font-size: 12px; display: none; color: red; font-weight: bold; }
-
-    /* নিচের চিকন লেখা */
-    .genuine { 
-      color: #333; 
-      text-align: center; 
-      margin: 10px 0; 
-      font-size: 10px; 
-      display: none;
-    }
+    .genuine { color: #333; text-align: center; margin: 10px 0; font-size: 10px; display: none; }
 
     .contact { 
       text-align: center; 
@@ -56,11 +42,10 @@
       border-top: 1px solid #ccc; 
       margin-top: 15px; 
       padding-top: 8px; 
-      width: 85%;
+      width: 80%;
       margin-left: auto;
       margin-right: auto;
     }
-    
     .contact strong { font-size: 11px; }
     a { color: #0000EE; text-decoration: underline; }
   </style>
@@ -73,7 +58,6 @@
 
   <div class="main">
     <h2>Details Below: <a href="index.html" class="back">Back To Home Page</a></h2>
-
     <div id="loading" style="text-align:center; margin-top:15px; font-size:12px;">Loading...</div>
     <div id="error-msg" class="status-msg"></div>
 
