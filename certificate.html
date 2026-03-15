@@ -6,44 +6,45 @@
   <title>Certificate Details</title>
   <style>
     body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: #fff; line-height: 1.1; color: #000; }
-    .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #666; }
+    .header { text-align: center; padding: 10px 0; border-bottom: 2.2px solid #666; }
     .header img { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; }
     .main { max-width: 900px; margin: 5px auto; padding: 0 10px; }
     
     h2 { font-size: 13px; margin: 10px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding-bottom: 5px; font-weight: bold; }
     .back { color: #600090; text-decoration: underline; font-size: 11px; }
 
-    /* বক্সের দৈর্ঘ্য বাড়ানো হয়েছে */
+    /* বক্সের দৈর্ঘ্য বাড়ানো হয়েছে এবং উচ্চতা কমানো হয়েছে */
     .details-box { 
       border: 1px solid #000; 
-      border-radius: 20px; 
-      padding: 10px 0; /* উচ্চতা কমানোর জন্য প্যাডিং কমানো হয়েছে */
+      border-radius: 22px; 
+      padding: 10px 0; 
       margin: 20px auto; 
-      width: 92%; /* বক্সের দৈর্ঘ্য বাড়ানো হয়েছে */
-      max-width: 550px; 
+      width: 90%; 
+      max-width: 520px; /* বক্সের দৈর্ঘ্য বৃদ্ধি */
       display: none;
     }
 
-    /* বাম পাশে ফাঁকা জায়গা ঠিক রেখে টেবিলের দৈর্ঘ্য বাড়ানো */
+    /* টেবিলের দৈর্ঘ্য বাড়ানো এবং বাম পাশে নির্দিষ্ট ফাঁকা রাখা */
     table { 
-      width: 60%; /* টেবিলের দৈর্ঘ্য বাড়ানো হয়েছে */
+      width: 65%; /* টেবিলটির দৈর্ঘ্য বাড়ানো হয়েছে */
       border-collapse: collapse; 
-      margin-left: 38%; /* বাম পাশের ফাঁকা জায়গা অরিজিনাল ছবির মতো করা হয়েছে */
+      margin-left: 32%; /* বাম পাশে ফাঁকা জায়গা ছবির মতো অ্যাডজাস্ট করা হয়েছে */
     } 
     
-    /* লেখা ছোট করা এবং উচ্চতা কমানো */
+    /* লেখা ছোট এবং রো-এর উচ্চতা কমানো */
     th, td { 
       border-bottom: 0.8px solid #999; 
-      padding: 2px 0; /* রো-এর উচ্চতা কমানো হয়েছে */
+      padding: 3px 0; /* উচ্চতা কমানো হয়েছে */
       text-align: left; 
-      font-size: 10.5px; /* ফন্ট সাইজ ছোট করা হয়েছে */
+      font-size: 10.2px; /* লেখা আরও ছোট করা হয়েছে */
+      letter-spacing: -0.2px;
     }
-    th { width: 35%; font-weight: normal; }
-    td { padding-left: 8px; font-weight: normal; vertical-align: top; }
+    th { width: 38%; font-weight: normal; color: #111; }
+    td { padding-left: 8px; font-weight: normal; color: #222; vertical-align: top; }
     tr:last-child th, tr:last-child td { border-bottom: none; }
 
     .status-msg { text-align: center; margin-top: 15px; font-size: 12px; display: none; color: red; }
-    .genuine { color: #333; text-align: center; margin: 12px 0; font-size: 10px; display: none; }
+    .genuine { color: #333; text-align: center; margin: 12px 0; font-size: 9.5px; display: none; }
 
     .contact { 
       text-align: center; 
@@ -57,7 +58,11 @@
   </style>
 </head>
 <body>
-  <div class="header"><img src="header.png" alt="Header"></div>
+
+  <div class="header">
+    <img src="header.png" alt="Header">
+  </div>
+
   <div class="main">
     <h2>Details Below: <a href="index.html" class="back">Back To Home Page</a></h2>
     <div id="loading" style="text-align:center; margin-top:20px; font-size:11px;">Loading...</div>
@@ -77,7 +82,11 @@
         <tr><th>Certificate Type</th><td id="cert_type"></td></tr>
       </table>
     </div>
-    <p id="genuine-msg" class="genuine">The above certificate is genuine, and issued by Human Assets Training Institute</p>
+
+    <p id="genuine-msg" class="genuine">
+      The above certificate is genuine, and issued by Human Assets Training Institute
+    </p>
+
     <div class="contact">
       <p><strong>Contact us:</strong><br>
       Tel: +966 13 849-3360 Fax: +966 13 849-3404<br>
@@ -86,9 +95,9 @@
   </div>
 
   <script>
-    // স্ক্রিপ্ট অংশটি আপনার আগের ফাইলের মতোই ব্যবহার করুন
     const params = new URLSearchParams(window.location.search);
     const cno = params.get('cno');
+
     if (cno) {
       fetch('data.json?v=' + Math.random())
         .then(res => res.json())
@@ -106,12 +115,18 @@
             document.getElementById('nationality').textContent = cert.nationality;
             document.getElementById('company').textContent = cert.company;
             document.getElementById('cert_type').textContent = cert.cert_type;
+            
             document.getElementById('details-box').style.display = 'block';
             document.getElementById('genuine-msg').style.display = 'block';
           } else {
             document.getElementById('error-msg').textContent = 'Error: Data not found!';
             document.getElementById('error-msg').style.display = 'block';
           }
+        })
+        .catch(() => {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('error-msg').textContent = 'Error loading data.';
+          document.getElementById('error-msg').style.display = 'block';
         });
     }
   </script>
